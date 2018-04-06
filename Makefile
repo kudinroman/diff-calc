@@ -13,3 +13,8 @@ publish:
 
 lint:
 	npm run eslint
+
+test:
+	npm test
+
+.PHONY: test
