@@ -33,7 +33,9 @@ const gendiff = (firstFile, secondFile) => {
     }
     return `${acc} `;
   }, '');
-  return `{${resObj}\n${deleted}}`;
+  const result = `{${resObj}\n${deleted}}`;
+  console.log(result);
+  return result;
 };
 
 // console.log(gendiff('src/files/before.json', 'src/files/after.json'));
