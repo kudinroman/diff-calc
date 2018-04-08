@@ -5,13 +5,6 @@ import commander from 'commander';
 const _ = require('lodash');
 const fs = require('fs');
 
-commander
-  .arguments('<firstConfig> <secondConfig>')
-  .description('Compares two configuration files and shows a difference.')
-  .option('-V, --version', 'output the version number')
-  .option('-f, --format [type]', 'Output format')
-  .parse(process.argv);
-
 const gendiff = (firstFile, secondFile) => {
   const before = JSON.parse(fs.readFileSync(firstFile));
   const after = JSON.parse(fs.readFileSync(secondFile));
@@ -33,12 +26,16 @@ const gendiff = (firstFile, secondFile) => {
     }
     return `${acc} `;
   }, '');
-  const result = `{${resObj}\n${deleted}}`;
-  console.log(result);
-  return result;
+  return `{${resObj}\n${deleted}}`;
 };
 
-// console.log(gendiff('src/files/before.json', 'src/files/after.json'));
+commander
+  .arguments('<firstConfig> <secondConfig>')
+  .action((firstConfig, secondConfig) => gendiff(firstConfig, secondConfig))
+  .description('Compares two configuration files and shows a difference.')
+  .option('-V, --version', 'output the version number')
+  .option('-f, --format [type]', 'Output format')
+  .parse(process.argv);
 
 module.exports = gendiff;
 export default gendiff;
