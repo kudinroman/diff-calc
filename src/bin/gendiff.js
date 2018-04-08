@@ -26,6 +26,7 @@ const gendiff = (firstFile, secondFile) => {
     }
     return `${acc} `;
   }, '');
+  console.log(`{${resObj}\n${deleted}}`);
   return `{${resObj}\n${deleted}}`;
 };
 
