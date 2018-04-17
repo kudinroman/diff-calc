@@ -1,34 +1,7 @@
 #!/usr/bin/env node
 
 import commander from 'commander';
-
-const _ = require('lodash');
-const fs = require('fs');
-
-const gendiff = (firstFile, secondFile) => {
-  const before = JSON.parse(fs.readFileSync(firstFile));
-  const after = JSON.parse(fs.readFileSync(secondFile));
-  const deleted = _.reduce(after, (acc, value, key) => {
-    if (!_.has(before, key)) {
-      return `${acc}  + ${key}: ${value}\n`;
-    }
-    return `${acc}`;
-  }, '');
-  const resObj = _.reduce(before, (acc, value, key) => {
-    if (!_.has(after, key)) {
-      return `${acc}\n  - ${key}: ${value}`;
-    }
-    if (_.has(after, key) && after[key] !== value) {
-      return `${acc}\n  + ${key}: ${after[key]}\n  - ${key}: ${value}`;
-    }
-    if (_.has(after, key) && after[key] === value) {
-      return `${acc}\n    ${key}: ${value}`;
-    }
-    return `${acc} `;
-  }, '');
-  console.log(`{${resObj}\n${deleted}}`);
-  return `{${resObj}\n${deleted}}`;
-};
+import gendiff from '..';
 
 commander
   .arguments('<firstConfig> <secondConfig>')
@@ -38,5 +11,4 @@ commander
   .option('-f, --format [type]', 'Output format')
   .parse(process.argv);
 
-module.exports = gendiff;
 export default gendiff;
