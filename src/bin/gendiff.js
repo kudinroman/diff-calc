@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
 import commander from 'commander';
-import genDiff from '..';
+import gendiff from '..';
 
 commander
   .arguments('<firstConfig> <secondConfig>')
   .action((firstConfig, secondConfig) => {
-    const diff = genDiff(firstConfig, secondConfig);
+    const diff = gendiff(firstConfig, secondConfig);
     console.log(diff);
   })
   .description('Compares two configuration files and shows a difference.')
@@ -14,4 +14,4 @@ commander
   .option('-f, --format [type]', 'Output format')
   .parse(process.argv);
 
-export default genDiff;
+export default gendiff;
