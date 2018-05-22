@@ -1,9 +1,10 @@
 import _ from 'lodash';
 import fs from 'fs';
+import yaml from 'js-yaml';
 
-const gendiff = (pathToFile1, pathToFile2) => {
-  const dataBeforeChange = JSON.parse(fs.readFileSync(pathToFile1));
-  const dataAfterChange = JSON.parse(fs.readFileSync(pathToFile2));
+const gendiffYaml = (pathToFile1, pathToFile2) => {
+  const dataBeforeChange = yaml.safeLoad(fs.readFileSync(pathToFile1));
+  const dataAfterChange = yaml.safeLoad(fs.readFileSync(pathToFile2));
   const Keys = _.union(Object.keys(dataBeforeChange), Object.keys(dataAfterChange));
 
   const result = Keys.reduce((acc, key) => {
@@ -28,4 +29,4 @@ const gendiff = (pathToFile1, pathToFile2) => {
   return `{${result}\n}\n`;
 };
 
-export default gendiff;
+export default gendiffYaml;

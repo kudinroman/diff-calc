@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import fs from 'fs';
 
-const gendiff = (pathToFile1, pathToFile2) => {
+const gendiffJson = (pathToFile1, pathToFile2) => {
   const dataBeforeChange = JSON.parse(fs.readFileSync(pathToFile1));
   const dataAfterChange = JSON.parse(fs.readFileSync(pathToFile2));
   const Keys = _.union(Object.keys(dataBeforeChange), Object.keys(dataAfterChange));
@@ -28,4 +28,4 @@ const gendiff = (pathToFile1, pathToFile2) => {
   return `{${result}\n}\n`;
 };
 
-export default gendiff;
+export default gendiffJson;
