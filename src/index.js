@@ -9,11 +9,12 @@ const gendiffs = {
   '.yaml': yaml.safeLoad,
   '.ini': ini.parse,
 };
-const getFuncGenDiff = pathToFile => gendiffs[path.extname(pathToFile)];
+
+const getFuncGendiff = pathToFile => gendiffs[path.extname(pathToFile)](fs.readFileSync(pathToFile, 'utf8'));
 
 const gendiff = (pathToFile1, pathToFile2) => {
-  const dataBeforeChange = getFuncGenDiff(pathToFile1)(fs.readFileSync(pathToFile1).toString());
-  const dataAfterChange = getFuncGenDiff(pathToFile1)(fs.readFileSync(pathToFile2).toString());
+  const dataBeforeChange = getFuncGendiff(pathToFile1);
+  const dataAfterChange = getFuncGendiff(pathToFile2);
   const Keys = _.union(Object.keys(dataBeforeChange), Object.keys(dataAfterChange));
 
   const result = Keys.reduce((acc, key) => {

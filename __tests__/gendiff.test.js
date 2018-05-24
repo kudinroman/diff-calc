@@ -13,16 +13,18 @@ const beforeIni = '__tests__/__fixtures__/ini/before.ini';
 const afterIni = '__tests__/__fixtures__/ini/after.ini';
 const resultIni = `__tests__/__fixtures__/ini/resultIni.txt`;
 
+const result = pathToResutFile => fs.readFileSync(pathToResutFile, 'utf8');
+
 describe('compare two files', () => {
   test('compare two files .json', () => {
-    expect(gendiff(beforeJson, afterJson)).toBe(fs.readFileSync(resultJson, 'utf8'));
+    expect(gendiff(beforeJson, afterJson)).toBe(result(resultJson));
   });
 
   test('compare two files .yaml', () => {
-    expect(gendiff(beforeYaml, afterYaml)).toBe(fs.readFileSync(resultYaml, 'utf8'));
+    expect(gendiff(beforeYaml, afterYaml)).toBe(result(resultYaml));
   });
 
   test('compare two files .ini', () => {
-    expect(gendiff(beforeIni, afterIni)).toBe(fs.readFileSync(resultIni, 'utf8'));
+    expect(gendiff(beforeIni, afterIni)).toBe(result(resultIni));
   });
 });
